@@ -1,15 +1,15 @@
 def consolidate_cart(cart)
-  hash = {}
+  cart_updated = {}
   cart.each do |item_hash|
     item_hash.each do |name, price_hash|
-      if hash[name].nil?
-        hash[name] = price_hash.merge({:count => 1})
+      if cart_updated[name].nil?
+       cart_updated[name] = price_hash.merge({:count => 1})
       else
-        hash[name][:count] += 1
+       cart_updated[name][:count] += 1
       end
     end
   end
-  hash
+  cart_updated
 end
 
 def apply_coupons(cart, coupons)
@@ -32,6 +32,7 @@ if cart[item]
     cart
 end 
 
+
 def apply_clearance(cart)
   cart.each do |item, price_hash|
     if price_hash[:clearance] == true
@@ -40,6 +41,7 @@ def apply_clearance(cart)
   end
   cart
 end
+
 
 def checkout(items, coupons)
   cart = consolidate_cart(items)
